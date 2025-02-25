@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Undo Redo Memento</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin: 50px; }
+        textarea { width: 80%; height: 150px; margin-bottom: 10px; }
+        button { margin: 5px; padding: 10px; font-size: 16px; }
+    </style>
+</head>
+<body>
+
+<h2>Undo/Redo Memento Pattern</h2>
+<textarea id="textArea"></textarea><br>
+<button onclick="saveText()">Save</button>
+<button onclick="undo()">Undo</button>
+<button onclick="redo()">Redo</button>
+
+<script>
+    // Load initial text from the server
+    function loadText() {
+        fetch('memento.php')
+            .then(response => response.json())
+            .then(data => document.getElementById('textArea').value = data.text);
+    }
+
+    // Save text to the server
+    function saveText() {
+        const text = document.getElementById('textArea').value;
+        fetch('memento.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({ action: 'save', text: text })
+        });
+    }
+
+    // Undo action
+    function undo() {
+        fetch('memento.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({ action: 'undo' })
+        })
+            .then(response => response.json())
+            .then(data => document.getElementById('textArea').value = data.text);
+    }
+
+    // Redo action
+    function redo() {
+        fetch('memento.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: new URLSearchParams({ action: 'redo' })
+        })
+            .then(response => response.json())
+            .then(data => document.getElementById('textArea').value = data.text);
+    }
+
+    // Load the initial text on page load
+    window.onload = loadText;
+</script>
+
+</body>
+</html>

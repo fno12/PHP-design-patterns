@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flyweight Demo - Les</title>
+    <style>
+        body { text-align: center; font-family: Arial, sans-serif; }
+        canvas { border: 1px solid black; background-color: #87CEEB; }
+    </style>
+</head>
+<body>
+<h2>Flyweight Vzor - Les v prohlížeči 🌳</h2>
+<canvas id="forestCanvas" width="500" height="300"></canvas>
+<script>
+    async function loadForest() {
+        const response = await fetch("flyweight.php");
+        const data = await response.json();
+        drawForest(data.trees);
+    }
+
+    function drawForest(trees) {
+        const canvas = document.getElementById("forestCanvas");
+        const ctx = canvas.getContext("2d");
+
+        trees.forEach(tree => {
+            drawTree(ctx, tree.x, tree.y, tree.type.color);
+        });
+    }
+
+    function drawTree(ctx, x, y, color) {
+        ctx.fillStyle = "#8B4513";
+        ctx.fillRect(x - 5, y, 10, 20);
+
+        ctx.fillStyle = color;
+        ctx.beginPath();
+        ctx.arc(x, y - 10, 15, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    loadForest();
+</script>
+</body>
+</html>

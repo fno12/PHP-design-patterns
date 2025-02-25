@@ -64,7 +64,6 @@ class Forest {
     }
 }
 
-// Vytvoření lesa s náhodně rozmístěnými stromy
 $forest = new Forest();
 $types = [
     ["Dub", "#228B22"],
@@ -78,4 +77,4 @@ for ($i = 0; $i < 50; $i++) {
 }
 
 echo json_encode(["trees" => $forest->getTrees()]);
-?>
+
