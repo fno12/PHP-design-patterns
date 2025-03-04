@@ -66,9 +66,9 @@ class Forest {
 
 $forest = new Forest();
 $types = [
-    ["Dub", "#228B22"],
-    ["Borovice", "#2E8B57"],
-    ["Bříza", "#D2B48C"]
+    ["Oak", "#228B22"],
+    ["Pine", "#2E8B57"],
+    ["Birch", "#D2B48C"]
 ];
 
 for ($i = 0; $i < 50; $i++) {
